@@ -125,6 +125,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/olof/Projects/base_model/base_model/uploads'
+MEDIA_ROOT = 'uploads'
 
 MEDIA_URL = '/media/'

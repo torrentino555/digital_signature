@@ -10,7 +10,7 @@ def get_document(filename):
     document = desktop.loadComponentFromURL(uno.systemPathToFileUrl(filename), "_blank", 0, tuple())
     return document
 
-def xml_file(Person, primary_key, path='/home/olof/Projects/base_model/base_model/templates/documents/skeleton_iit.xml', type='FizLico', isBoss=False):
+def xml_file(Person, primary_key, path='/home/olof/Projects/digital_signature/base_model/templates/documents/skeleton_iit.xml', type='FizLico', isBoss=False):
     tree = etree.parse(path)
     node = tree.xpath('/regform/abonent/organization/certificateowner')[0]
     node[0].text = Person.Surname
@@ -24,18 +24,18 @@ def xml_file(Person, primary_key, path='/home/olof/Projects/base_model/base_mode
         node.attrib['IsBoss'] = "true"
     else:
         node.attrib['IsContact'] = "true"
-    file = open(u'/home/olof/Projects/base_model/base_model/uploads/xml/{}.xml'.format(primary_key), 'w')
+    file = open(u'/home/olof/Projects/digital_signature/base_model/uploads/xml/{}.xml'.format(primary_key), 'w')
     file.write(str(etree.tostring(tree, pretty_print=True,encoding='utf-8', xml_declaration=True), encoding='UTF-8'))
     file.close()
 
 def in_pdf(pathIn, pathOut, isInvoice=True):
     import subprocess
-    subprocess.call(['/home/olof/Projects/base_model/base_model/scripts/toPdf.sh', pathOut, pathIn])
+    subprocess.call(['/home/olof/Projects/digital_signature/base_model/scripts/toPdf.sh', pathOut, pathIn])
 
 
 def statement(Person, primary_key):
-    input_path_file = '/home/olof/Projects/base_model/base_model/templates/documents/statement_ib.xlsx'
-    destination_path_file = '/home/olof/Projects/base_model/base_model/uploads/statements/{}.xlsx'.format(primary_key)
+    input_path_file = '/home/olof/Projects/digital_signature/base_model/templates/documents/statement_ib.xlsx'
+    destination_path_file = '/home/olof/Projects/digital_signature/base_model/uploads/statements/{}.xlsx'.format(primary_key)
 
     document = get_document(input_path_file)
     sheet = document.getSheets().getByIndex(0)
@@ -54,8 +54,8 @@ def statement(Person, primary_key):
     document.storeToURL(uno.systemPathToFileUrl(destination_path_file), ())
 
 def invoice(Person, primary_key, date):
-    input_path_file = '/home/olof/Projects/base_model/base_model/templates/documents/cheque.xlsx'
-    destination_path_file = '/home/olof/Projects/base_model/base_model/uploads/invoices/{}.xlsx'.format(primary_key)
+    input_path_file = '/home/olof/Projects/digital_signature/base_model/templates/documents/cheque.xlsx'
+    destination_path_file = '/home/olof/Projects/digital_signature/base_model/uploads/invoices/{}.xlsx'.format(primary_key)
 
     document = get_document(input_path_file)
     sheet = document.getSheets().getByIndex(0)
