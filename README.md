@@ -5,12 +5,12 @@
 * python3
 * unoconv
 * libreoffice
+* nginx
 
 Должны быть установлены библиотеки для python3:
 
 * uno
 * django
-* nginx
 * lxml
 
 # Настройка сервера
