@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<table border="1">
+  <tr>
+    <th>Номер заказа</th>
+    <th>Клиент</th>
+    <th>ISP</th>
+    <th>Token</th>
+    <th>Help</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>{{order.Number}}</td>
+    <td><a href="{% url 'person' order.person.pk %}?id={{order.pk}}">{{order.person}}</a></td>
+    <td>{{order.Isp}}</td>
+    <td>{{order.Token}}</td>
+    <td>{{order.Help}}</td>
+    <td>{{order.Date}}</td>
+    {% include 'status.html' %}
+  </tr>
+</table>
+<a class="file" href="/media/invoices/{{ order.pk }}.pdf">Invoice (pdf)</a>
+<a class="file" href="/media/statements/{{ order.pk }}.xlsx">Statement (xlsx)</a>
+<a class="file" href="/media/xml/{{ order.pk }}.xml">Xml (xml)</a>
+{% if order.Status == 'В рассмотрении' %}
+<form action="{% url 'order' order.Number %}" method="post">
+  {% csrf_token %}
+    <input class="btn btn-default" type="submit" name="status" value="Принять">
+    <input class="btn btn-default" type="submit" name="status" value="Отклонить">
+</form>
+{% else %}
+<br><i>Время встречи: {{meeting.date}}, {{meeting.time}}</i>
+{% endif %}
+{% endblock %}

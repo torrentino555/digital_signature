@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/account/" method="post">
+  {% csrf_token %} {% for field in form %}
+  <div class="item">
+    <div class="label2">
+      {{ field.label_tag }}
+    </div>
+    <div class="input">
+      {{field}}
+    </div>
+    {% for error in field.errors %}
+      <span class="help-block sub">{{error}}</span>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="sub">
+    <input class="btn btn-default" type="submit" value="Сохранить">
+  </div>
+</form>
+{% endblock %}

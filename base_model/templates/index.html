@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if orders.count == 0 %}
+У вас нет заказов. Чтобы сделать заказ, нажмите <a href="{% url 'new_order' %}">"Новый заказ"</a>
+{% else %}
+{% if meeting %}
+Ваш заказ принят. Чтобы получить электронную подпись, приходите {{ meeting.date }} в {{ meeting.time }}
+по адресу ADRES для подтверждения вашей личности.
+{% endif %}
+<table border="1">
+  <caption>Заказы:</caption>
+  <tr>
+    <th>Номер заказа</th>
+    <th>ISP</th>
+    <th>Token</th>
+    <th>Help</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  {% for order in orders %}
+  <tr>
+    <td>{{order.Number}}</td>
+    <td>{{order.Isp}}</td>
+    <td>{{order.Token}}</td>
+    <td>{{order.Help}}</td>
+    <td>{{order.Date}}</td>
+    {% include 'status.html' %}
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

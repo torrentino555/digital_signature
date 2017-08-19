@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'new_order' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="item">
+    <div class="label2">
+      {{ field.label_tag }}
+    </div>
+    <div class="input">
+      {{field}}
+    </div>
+    {% for error in field.errors %}
+      <br>
+      <br>
+      <span class="help-block sub">{{error}}</span>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <div class="sub">
+    <input class="btn btn-default" type="submit" value="Отправить">
+  </div>
+</form>
+{% endblock %}

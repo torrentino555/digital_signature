@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+{% if orders.count == 0 %}
+Нет заказов, требующих проверки.
+{% else %}
+<table border="1">
+  <caption>Заказы:</caption>
+  <tr>
+    <th>Номер заказа</th>
+    <th>Клиент</th>
+    <th>ISP</th>
+    <th>Token</th>
+    <th>Help</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  {% for order in orders %}
+  <tr>
+    <td><a href="{% url 'order' order.Number %}">{{order.Number}}</a></td>
+    <td><a href="{% url 'person' order.person.pk %}">{{order.person}}</a></td>
+    <td>{{order.Isp}}</td>
+    <td>{{order.Token}}</td>
+    <td>{{order.Help}}</td>
+    <td>{{order.Date}}</td>
+    {% include 'status.html' %}
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

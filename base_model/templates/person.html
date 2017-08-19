@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.GET.id %}
+<a href="{% url 'order' request.GET.id %}">Вернуться к заказу</a>
+{% endif %}
+<div class="table">
+  <div class="item">
+    <div class="label2">
+      <label>Имя</label>
+    </div>
+    <div class="input">
+      {{person.Surname}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Фамилия</label>
+    </div>
+    <div class="input">
+      {{person.Firstname}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Отчество</label>
+    </div>
+    <div class="input">
+      {{person.GivenName}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Страна</label>
+    </div>
+    <div class="input">
+      {{person.Country}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Область</label>
+    </div>
+    <div class="input">
+      {{person.State}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Населенный пункт</label>
+    </div>
+    <div class="input">
+      {{person.Locality}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Адрес</label>
+    </div>
+    <div class="input">
+      {{person.StreetAddress}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>Email</label>
+    </div>
+    <div class="input">
+      {{person.email}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>ИНН</label>
+    </div>
+    <div class="input">
+      {{person.INN}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="label2">
+      <label>СНИЛС</label>
+    </div>
+    <div class="input">
+      {{person.SNILS}}
+    </div>
+  </div>
+</div>
+{% endblock %}

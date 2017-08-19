@@ -1,0 +1,9 @@
+<td class={% if order.Status == 'В рассмотрении' %}
+  "in-progress"
+  {% else %}
+  {% if order.Status == 'Принято' %}
+    "success"
+  {% else %}
+    "failed"
+  {% endif %}
+{% endif %}>{{order.Status}}</td>

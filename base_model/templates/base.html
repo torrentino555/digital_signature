@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ title }}</title>
+  <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="/css/style1.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="main-menu">
+          {% if request.user.is_authenticated %}
+            <li><a class={% if menu.m1 %} "active" {% else %} "" {% endif %} href="{% url 'account' %}">Настройки</a></li>
+            <li><a class={% if menu.m2 %} "active" {% else %} "" {% endif %} href="{% url 'index' %}">Личный Кабинет</a></li>
+            <li><a class={% if menu.m3 %} "active" {% else %} "" {% endif %} href="{% url 'new_order' %}">Новый заказ</a></li>
+            {% if user.admin %}
+            <li><a class={% if menu.m4 %} "active" {% else %} "" {% endif %} href="{% url 'check' %}">Проверка заказов</a></li>
+            <li><a class={% if menu.m5 %} "active" {% else %} "" {% endif %} href="{% url 'finished_orders' %}">Завершенные заказы</a></li>
+            {% endif %}
+          {% endif %}
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-9">
+        <div class="content">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+      <div class="col-xs-3">
+        {% if request.user.is_authenticated %}
+        <div class="header-user">
+            {% if user.Surname %} {{user.Firstname}} <br>
+            {{user.Surname}} <br>
+            {{user.GivenName}} {% else %} {{user.user.username}} {% endif %}
+            <a href="/logout">Выход</a>
+        </div>
+        {% else %}
+        <ul class="in-menu">
+            <li><a href="{% url 'login' %}">Вход</a></li>
+            <li><a href="{% url 'registration' %}">Регистрация</a></li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
