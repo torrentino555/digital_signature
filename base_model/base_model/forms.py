@@ -5,6 +5,9 @@ from .models import Person, Order, Meeting
 from django.contrib import auth
 from django.contrib.auth.models import User
 from .parser import xml_file, statement, invoice, in_pdf
+import sys
+sys.path.append("..")
+from scripts_settings import global_path
 
 class UserForm(forms.Form):
     Surname = forms.CharField(label=u'Имя')
@@ -86,11 +89,11 @@ class OrderForm(forms.Form):
         order.save()
         order.Number = order.id
         order.save()
-        xml_file(person, order.pk)
+        xml_file(person, order, order.pk)
         statement(person, order.pk)
-        in_pdf('/home/olof/Projects/digital_signature/base_model/uploads/statements/' + str(order.pk) + '.xlsx', '/home/olof/Projects/digital_signature/base_model/uploads/statements/' + str(order.pk) + '.pdf')
+        # in_pdf(global_path + 'uploads/statements/' + str(order.pk) + '.xlsx', global_path + 'uploads/statements/' + str(order.pk) + '.pdf')
         invoice(person, order.pk, order.Date)
-        in_pdf('/home/olof/Projects/digital_signature/base_model/uploads/invoices/' + str(order.pk) + '.xlsx', '/home/olof/Projects/digital_signature/base_model/uploads/invoices/' + str(order.pk) + '.pdf')
+        in_pdf(global_path + 'uploads/invoices/' + str(order.pk) + '.xlsx', global_path + 'uploads/invoices/' + str(order.pk) + '.pdf')
 
 class MeetingForm(forms.Form):
     Date = forms.DateField(label=u'Дата')
